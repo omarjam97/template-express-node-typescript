@@ -1,7 +1,14 @@
-import express, { Application } from 'express';
+import { iController } from './interfaces/iController.interface';
+import App from './App';
+import dotenv from 'dotenv';
+import { envValidation } from './validation/envValidation';
+import homeController from './controllers/home.controller';
 
-const app: Application = express();
+dotenv.config();
+envValidation();
 
-app.listen(5000, () => {
-  console.log(`App Listning on PORT 5000`);
-});
+const Controllers: iController[] = [new homeController()];
+
+const app: App = new App(Controllers, 5000);
+
+app.listen();
